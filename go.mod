@@ -112,6 +112,7 @@ require (
 	github.com/ryanuber/columnize v2.1.1-0.20170703205827-abc90934186a+incompatible
 	github.com/ryanuber/go-glob v1.0.0
 	github.com/sean-/seed v0.0.0-20170313163322-e2103e2c3529
+	github.com/sergi/go-diff v1.3.1
 	github.com/shirou/gopsutil/v3 v3.23.1
 	github.com/shoenig/test v0.6.1
 	github.com/skratchdot/open-golang v0.0.0-20160302144031-75fb7ed4208c
