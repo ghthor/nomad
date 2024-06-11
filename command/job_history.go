@@ -11,6 +11,7 @@ import (
 
 	"github.com/hashicorp/nomad/api"
 	"github.com/hashicorp/nomad/api/contexts"
+	"github.com/hashicorp/nomad/command/planformat"
 	"github.com/posener/complete"
 	"github.com/ryanuber/columnize"
 )
@@ -260,7 +261,7 @@ func (c *JobHistoryCommand) formatJobVersion(job *api.Job, diff *api.JobDiff, ne
 
 	if diff != nil {
 		//diffStr := fmt.Sprintf("Difference between version %d and %d:", *job.Version, nextVersion)
-		basic = append(basic, fmt.Sprintf("Diff|\n%s", strings.TrimSpace(FormatJobDiff(diff, false))))
+		basic = append(basic, fmt.Sprintf("Diff|\n%s", strings.TrimSpace(planformat.FormatJobDiff(diff, false))))
 	}
 
 	if full {
