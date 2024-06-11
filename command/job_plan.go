@@ -9,11 +9,13 @@ import (
 	"sort"
 	"strings"
 	"time"
+	"unicode"
 
 	"github.com/hashicorp/nomad/api"
 	"github.com/hashicorp/nomad/helper/pointer"
 	"github.com/hashicorp/nomad/scheduler"
 	"github.com/posener/complete"
+	"github.com/sergi/go-diff/diffmatchpatch"
 )
 
 const (
@@ -648,6 +650,13 @@ func formatFieldDiff(diff *api.FieldDiff, startPrefix, keyPrefix, valuePrefix in
 		diff.Name,
 		strings.Repeat(" ", valuePrefix))
 
+	// TODO(ghthor): push this into upstream nomad and expose this diff formatter in the nomad api package
+	// HOOK to pretty format templates
+	if diff.Name == "EmbeddedTmpl" {
+		out += formatEmbeddedTemplateDiff(diff)
+		return out
+	}
+
 	switch diff.Type {
 	case "Added":
 		out += fmt.Sprintf("%q", diff.New)
@@ -664,6 +673,16 @@ func formatFieldDiff(diff *api.FieldDiff, startPrefix, keyPrefix, valuePrefix in
 		out += fmt.Sprintf(" (%s)", colorAnnotations(diff.Annotations))
 	}
 
+	return out
+}
+
+// formatEmbeddedTemplateDiff creates a pretty diff string for embedded templates
+func formatEmbeddedTemplateDiff(diff *api.FieldDiff) string {
+	// TODO(dbalan): experiment with generating a different diff string here with a different tool
+	out := ""
+	dmp := diffmatchpatch.New()
+	diffs := dmp.DiffMain(diff.Old, diff.New, false)
+	out += fmt.Sprintf("<<EOF\n%s\nEOF\n", strings.TrimRightFunc(dmp.DiffPrettyText(diffs), unicode.IsSpace))
 	return out
 }
 
