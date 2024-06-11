@@ -108,7 +108,9 @@ require (
 	github.com/ryanuber/columnize v2.1.1-0.20170703205827-abc90934186a+incompatible
 	github.com/ryanuber/go-glob v1.0.0
 	github.com/sean-/seed v0.0.0-20170313163322-e2103e2c3529
+	github.com/sergi/go-diff v1.3.1
 	github.com/shirou/gopsutil/v3 v3.21.12
+	github.com/shoenig/test v0.2.8
 	github.com/skratchdot/open-golang v0.0.0-20160302144031-75fb7ed4208c
 	github.com/stretchr/testify v1.7.5
 	github.com/syndtr/gocapability v0.0.0-20200815063812-42c35b437635
@@ -127,8 +129,6 @@ require (
 	gopkg.in/tomb.v2 v2.0.0-20140626144623-14b3d72120e8
 	oss.indeed.com/go/libtime v1.5.0
 )
-
-require github.com/shoenig/test v0.2.8
 
 require (
 	cloud.google.com/go v0.97.0 // indirect
