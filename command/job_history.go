@@ -260,7 +260,7 @@ func (c *JobHistoryCommand) formatJobVersion(job *api.Job, diff *api.JobDiff, ne
 
 	if diff != nil {
 		//diffStr := fmt.Sprintf("Difference between version %d and %d:", *job.Version, nextVersion)
-		basic = append(basic, fmt.Sprintf("Diff|\n%s", strings.TrimSpace(formatJobDiff(diff, false))))
+		basic = append(basic, fmt.Sprintf("Diff|\n%s", strings.TrimSpace(FormatJobDiff(diff, false))))
 	}
 
 	if full {

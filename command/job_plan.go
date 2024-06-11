@@ -318,12 +318,12 @@ func (c *JobPlanCommand) outputPlannedJob(job *api.Job, resp *api.JobPlanRespons
 	// Print the diff if not disabled
 	if diff {
 		c.Ui.Output(fmt.Sprintf("%s\n",
-			c.Colorize().Color(strings.TrimSpace(formatJobDiff(resp.Diff, verbose)))))
+			c.Colorize().Color(strings.TrimSpace(FormatJobDiff(resp.Diff, verbose)))))
 	}
 
 	// Print the scheduler dry-run output
 	c.Ui.Output(c.Colorize().Color("[bold]Scheduler dry-run:[reset]"))
-	c.Ui.Output(c.Colorize().Color(formatDryRun(resp, job)))
+	c.Ui.Output(c.Colorize().Color(FormatDryRun(resp, job)))
 	c.Ui.Output("")
 
 	// Print any warnings if there are any
@@ -426,8 +426,10 @@ func formatJobModifyIndex(jobModifyIndex uint64, args string, jobName string) st
 	return out
 }
 
-// formatDryRun produces a string explaining the results of the dry run.
-func formatDryRun(resp *api.JobPlanResponse, job *api.Job) string {
+// FormatDryRun produces a string explaining the results of the dry run.  The
+// returned string needs to be colorized by package
+// "github.com/mitchellh/colorstring"
+func FormatDryRun(resp *api.JobPlanResponse, job *api.Job) string {
 	var rolling *api.Evaluation
 	for _, eval := range resp.CreatedEvals {
 		if eval.TriggeredBy == "rolling-update" {
@@ -480,9 +482,10 @@ func formatDryRun(resp *api.JobPlanResponse, job *api.Job) string {
 	return out
 }
 
-// formatJobDiff produces an annotated diff of the job. If verbose mode is
-// set, added or deleted task groups and tasks are expanded.
-func formatJobDiff(job *api.JobDiff, verbose bool) string {
+// FormatJobDiff produces an annotated diff of the job. If verbose mode is set,
+// added or deleted task groups and tasks are expanded. The returned string
+// needs to be colorized by package "github.com/mitchellh/colorstring"
+func FormatJobDiff(job *api.JobDiff, verbose bool) string {
 	marker, _ := getDiffString(job.Type)
 	out := fmt.Sprintf("%s[bold]Job: %q\n", marker, job.ID)
 
