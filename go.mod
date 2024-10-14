@@ -5,7 +5,7 @@ go 1.22
 // Pinned dependencies are noted in github.com/hashicorp/nomad/issues/11826.
 replace (
 	github.com/Microsoft/go-winio => github.com/endocrimes/go-winio v0.4.13-0.20190628114223-fb47a8b41948
-	github.com/armon/go-metrics => github.com/armon/go-metrics v0.0.0-20230509193637-d9ca9af9f1f9
+	github.com/armon/go-metrics => github.com/hashicorp/go-metrics v0.5.3
 	github.com/hashicorp/hcl => github.com/hashicorp/hcl v1.0.1-0.20201016140508-a07e7d50bbee
 )
 
